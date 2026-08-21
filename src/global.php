@@ -25,6 +25,10 @@ function funcion3() {
 // Se puede acceder desde el contexto global
 echo "Variable global: $varGlobal</br>";
 
+funcion1();
+funcion2();
+funcion3();
+
 ?>
 
 </body>
