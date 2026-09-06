@@ -163,6 +163,7 @@ class PeliculaAnimada5 {
 
   function __destruct() {
     echo "Destruyendo: " . $this->nombre . ". Fecha: " . $this->fecha .".<br>";
+    self::$totalPeliculas--;
   }
 
   public function mostrarDetalles() {
