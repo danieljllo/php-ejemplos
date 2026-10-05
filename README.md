@@ -21,4 +21,15 @@ Ejemplos de PHP usados para dictar curso de Programación
    
    1. [Herencia y polimorfismo](src/poo2.php)
       - [Ejemplo gráfico creado usando IA](src/poo3.php)
-   1. [Composición y Agregación](src/agregacion_composicion.php) 
+   1. [Composición y Agregación](src/agregacion_composicion.php)
+
+## Ejecutando los ejemplos
+1. Instalar PHP
+   - https://www.php.net/downloads.php
+1. Clonar el repositorio en un folder local
+   - `git clone https://github.com/danieljllo/php-ejemplos.git`
+1. Abrir una consola/terminal y navegar al folder `src` del repositorio
+1. Lanzar un servidor web usando PHP
+   - `php -S localhost:8080`
+1. Abrir un navegador y visitar el ejemplo desado
+   - ej: http://localhost:8080/poo.php
