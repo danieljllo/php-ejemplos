@@ -1,9 +1,9 @@
 <?php
 namespace agregacion_composicion;
 ?>
-<!DOCTYPE HTML>  
+<!DOCTYPE HTML>
 <html>
-<body>  
+<body>
 <h1>Ejemplo Programación Orientada a Objetos (POO) en PHP</h1>
 <h2>Agregación y Composición</h2>
 <?php
@@ -19,8 +19,12 @@ class Auto {
     $this->marca = $marca;
     echo "Creo Auto marca: " . $this->marca . "</br>";
   }
-  
-  public function setMotor(Motor $motor) { 
+
+  public function __destruct() {
+    echo "Destruyo Auto marca: " . $this->marca . "</br>";
+  }
+
+  public function setMotor(Motor $motor) {
     $this->motor = $motor;
     echo "Agrego motor</br>";
   }
@@ -28,16 +32,21 @@ class Auto {
 
 class Motor {
   private $cilindraje = 0;
-  
+
   public function __construct(int $cilindraje) {
     $this->cilindraje = $cilindraje;
     echo "Creo Motor de cillindraje: " . $this->cilindraje . "</br>";
+  }
+
+  public function __destruct() {
+    echo "Destruyo Motor</br>";
   }
 }
 
 $m = new Motor(2000);
 $toyota = new Auto("Toyota");
 $toyota->setMotor($m);
+unset($toyota);
 
 echo "<hr/>";
 
@@ -47,18 +56,18 @@ echo "<hr/>";
 class Estudiante {
   public string $nombre = "";
   private Tecnicatura $tecnicatura;
-  
+
   public function __construct(string $nombre) {
     $this->nombre = $nombre;
     echo "Creo Estudiante: " . $this->nombre . "</br>";
   }
-  
+
   public function setTecnicatura(Tecnicatura $tecnicatura) {
     $this->tecnicatura = $tecnicatura;
     $this->tecnicatura->registrar($this);
     echo "Asigno Tecnicatura: " . $this->tecnicatura->nombre . "</br>";
   }
-  
+
   public function getTecnicatura() {
     echo "Tecnicatura: " . $this->tecnicatura->nombre . "</br>";
   }
@@ -72,12 +81,12 @@ class Tecnicatura {
     $this->nombre = $nombre;
     echo "Creo Tecnicatura: " . $this->nombre . "</br>";
   }
-  
+
   public function registrar(Estudiante $estudiante) {
     array_push($this->estudiantes, $estudiante);
     echo "Registro Estudiante: " . $estudiante->nombre . "</br>";
   }
-  
+
   public function getEstudiantes() {
     echo "Estudiantes registrados: ";
     foreach ($this->estudiantes as $e) {
@@ -88,9 +97,11 @@ class Tecnicatura {
 
 $juan = new Estudiante("Juan");
 $maria = new Estudiante("Maria");
+$pepe = new Estudiante("Pepe");
 $rys = new Tecnicatura("Redes y Software");
 $juan->setTecnicatura($rys);
 $maria->setTecnicatura($rys);
+$pepe->setTecnicatura($rys);
 $juan->getTecnicatura();
 $rys->getEstudiantes();
 
@@ -102,17 +113,22 @@ echo "<hr/>";
 class Casa {
   private string $direccion = "";
   private $ambientes = array();
-  
+
   public function __construct(string $direccion) {
     $this->direccion = $direccion;
     echo "Casa en: " . $this->direccion . "</br>";
+  }
+
+  public function __destruct() {
+    unset($ambientes);
+    echo "Destruyo Casa en: " . $this->direccion . "</br>";
   }
 
   public function agregarAmbiente($nombre) {
     array_push($this->ambientes, new Ambiente($nombre, $this));
     echo "Agrego Ambiente: " . $nombre . "</br>";
   }
-  
+
   public function listarAmbientes() {
     echo "Ambientes: ";
     foreach ($this->ambientes as $e) {
@@ -123,18 +139,24 @@ class Casa {
 
 class Ambiente {
   public string $nombre = "";
-  private Casa $casa; 
-  
+  private Casa $casa;
+
   public function __construct(string $nombre, Casa $casa) {
     $this->nombre = $nombre;
     $this->casa = $casa;
+  }
+
+  public function __destruct() {
+    echo "Destruyo Ambiente: " . $this->nombre . "</br>";
   }
 }
 
 $c1 = new Casa("Colonia 1234");
 $c1->agregarAmbiente("Comedor");
 $c1->agregarAmbiente("Cocina");
+$c1->agregarAmbiente("Banno");
 $c1->listarAmbientes();
+unset($c1);
 
 echo "<hr/>";
 
